@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -87,7 +88,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ctx=this;
         act=this;
-      //  utl.fullScreen(act);
+        utl.fullScreen(act);
         FacebookSdk.sdkInitialize(getApplicationContext());
         mAuth=FirebaseAuth.getInstance();
         setContentView(R.layout.activity_splash);
@@ -149,18 +150,10 @@ public class Splash extends AppCompatActivity {
         ImageView mi=(ImageView)findViewById(R.id.m_small);
 
 
-        Bitmap fb= BitmapFactory.decodeResource(ctx.getResources(), R.drawable.fb_bb);
-        Bitmap g= BitmapFactory.decodeResource(ctx.getResources(), R.drawable.g_bb);
-        Bitmap m= BitmapFactory.decodeResource(ctx.getResources(), R.drawable.m_bb);
-        try {
-            fbi.setImageBitmap(utl.changeColorAll(fb, Color.WHITE));
-            gi.setImageBitmap(utl.changeColorAll(g, Color.WHITE));
-            mi.setImageBitmap(utl.changeColorAll(m, Color.WHITE));
+        utl.changeColorDrawable(fbi,R.color.color_splash_accent);
+        utl.changeColorDrawable(gi,R.color.color_splash_accent);
+        utl.changeColorDrawable(mi,R.color.color_splash_accent);
 
-            utl.l("W : "+fb.getWidth());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
     void initAnims()
@@ -179,6 +172,7 @@ public class Splash extends AppCompatActivity {
 
                                 zoom();
                             }
+
                         }
 
                         @Override
@@ -209,6 +203,14 @@ public class Splash extends AppCompatActivity {
                                             public void onAnimationEnd(Animation animation) {
 
 
+                                                String action= ""+getIntent().getStringExtra("action");
+                                                if(! action.equals("login"))
+                                                {
+                                                    Intent intent=new Intent(ctx,Home.class);
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                }
                                                 if(utl.getUser()!=null)
                                                 {
                                                     updateUI(utl.getUser());
@@ -219,14 +221,17 @@ public class Splash extends AppCompatActivity {
 
                                                 if(Constants.IS_ANIMATED_BG_SPLASH)
                                                     utl.animateBackGround(activity_splash,"#FF5722","#009688",true,10000);
+                                                if(utl.getUser()==null)
+                                                {
 
-                                                logins.setVisibility(View.VISIBLE);
-                                                logins.setAlpha(0.0f);
-                                                logins.animate()
+                                                    logins.setVisibility(View.VISIBLE);
+                                                    logins.setAlpha(1f);
+                                             /*   logins.animate()
                                                         .translationY(logins.getHeight())
                                                         .alpha(1.0f);
-
-
+*/
+                                                    utl.slideUP(logins,ctx);
+                                                }
                                             }
 
                                             @Override
@@ -352,8 +357,6 @@ public class Splash extends AppCompatActivity {
 
 
 
-
-
     public boolean askedForName=false;
     public void updateUI(final FirebaseUser firebaseUser)
     {
@@ -382,9 +385,7 @@ public class Splash extends AppCompatActivity {
 
 
 
-        if(provider.contains("firebase"))
-        {
-            if(firebaseUser.getDisplayName()==null)
+            if(utl.isNull(firebaseUser.getDisplayName()))
             {
 
                 if(diag!=null)
@@ -406,26 +407,23 @@ public class Splash extends AppCompatActivity {
                 });
 
 
-            }
+
         }
 
 
 
-        if(firebaseUser.getDisplayName()!=null)
+        if(!utl.isNull(firebaseUser.getDisplayName()))
             utl.toast(ctx,"Welcome ! "+firebaseUser.getDisplayName());
         else
             utl.toast(ctx,"Welcome ! You are Logged In !");
 
 
 
-        if(firebaseUser.getDisplayName()!=null||askedForName)
+
+        if(!utl.isNull(firebaseUser.getDisplayName())||askedForName)
         {
 
             register(user);
-
-            if(diag!=null)
-                if(diag.isShowing())
-                    diag.dismiss();
 
 
 
@@ -454,7 +452,7 @@ public class Splash extends AppCompatActivity {
                 startActivity(intent);
             }
 
-            //finish();
+            finish();
 
 
 
@@ -469,7 +467,7 @@ public class Splash extends AppCompatActivity {
 
     //************************G LOGIN***********************/
 
-    GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
     public int RC_SIGN_IN=99;
     void initGLogin()
     {
@@ -640,32 +638,64 @@ public class Splash extends AppCompatActivity {
     void loginViaM()
     {
 
-        firebaseUser =utl.getUser();
-        if(firebaseUser !=null)
-        {
-            updateUI(firebaseUser);
-            return;
-        }
+        utl.showDig(true,ctx);
+        AndroidNetworking.get("http://www.thehoproject.co.nf/status.php?action=check_phone_login&app="+
+                URLEncoder.encode(getResources().getString(R.string.app_name))).build()
+                .getAsString(new StringRequestListener() {
+                    @Override
+                    public void onResponse(String response) {
 
-        utl.inputDialog(ctx, "Login Via Phone", "Enter Phone No :",utl.TYPE_PHONE,new utl.InputDialogCallback() {
-            @Override
-            public void onDone(String text) {
+                        utl.showDig(false,ctx);
+                        utl.l(response);
 
-                if(!utl.isValidMobile(text)) {
-                    utl.toast(ctx, "Invalid Phone !");
-                    return;
-                }
+                        if(response.contains("notcool"))
+                        {
+                            utl.snack(act,"Phone Login is Disabled !");
+                            return;
+                        }
+                        firebaseUser =utl.getUser();
+                        if(firebaseUser !=null)
+                        {
+                            updateUI(firebaseUser);
+                            return;
+                        }
 
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        text,        // Phone number to verify
-                        120,                 // Timeout duration
-                        TimeUnit.SECONDS,   // Unit of timeout
-                        act,               // Activity (for callback binding)
-                        mCallbacks);
+                        utl.inputDialog(ctx, "Login Via Phone", "Enter Phone No :",utl.TYPE_PHONE,new utl.InputDialogCallback() {
+                            @Override
+                            public void onDone(String text) {
+
+                                if(!utl.isValidMobile(text)) {
+                                    utl.toast(ctx, "Invalid Phone !");
+                                    return;
+                                }
+
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                        text,        // Phone number to verify
+                                        120,                 // Timeout duration
+                                        TimeUnit.SECONDS,   // Unit of timeout
+                                        act,               // Activity (for callback binding)
+                                        mCallbacks);
 
 
-            }
-        });
+                            }
+                        });
+
+
+
+                    }
+
+                    @Override
+                    public void onError(ANError ANError) {
+
+                        utl.showDig(false,ctx);
+                        utl.l(ANError.getErrorDetail());
+                    }
+                });
+
+
+
+
+
 
 
     }

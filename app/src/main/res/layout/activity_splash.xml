@@ -4,18 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_splash"
      android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.hoptec.sanket.Splash">
 
     <ImageView
-        android:visibility="gone"
+        android:src="@drawable/bg"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:visibility="gone"
         android:background="@color/transparent_semi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -33,7 +31,7 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="170dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/ic_icon"
             android:layout_gravity="center"
             android:layout_height="170dp" />
 

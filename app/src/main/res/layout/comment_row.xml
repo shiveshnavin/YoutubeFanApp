@@ -28,7 +28,7 @@
             android:layout_height="match_parent">
 
 
-            <com.hoptec.sanket.RoundedImageView
+            <com.hoptec.sanket.views.RoundedImageView
                 android:src="@drawable/win8toast"
                 android:padding="13dp"
                 android:id="@+id/pic"

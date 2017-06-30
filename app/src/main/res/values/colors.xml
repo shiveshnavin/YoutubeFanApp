@@ -6,7 +6,7 @@
 
 
     <color name="color_splash_accent">#ffffff</color>
-    <color name="transparent_semi">#a9bdbdbd</color>
+    <color name="transparent_semi">#5cbdbdbd</color>
 
 
     <color name="primary">#009688</color>
@@ -224,7 +224,7 @@
         <color name="indigo_a700">#304ffe</color>
 
         <!-- BLUE -->
-        <color name="text_data_color">#9e9e9e</color>
+        <color name="text_data_color">#37474f</color>
 
         <color name="blue_50">#e7e9fd</color>
         <color name="blue_100">#d0d9ff</color>

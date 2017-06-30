@@ -26,8 +26,10 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.view.ContextThemeWrapper;
 import android.text.Html;
@@ -42,11 +44,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
@@ -166,13 +170,13 @@ public class utl {
     }
 
 
-    public  static void SlideUP(View view, Context context)
+    public  static void slideUP(View view, Context context)
     {
         view.startAnimation(AnimationUtils.loadAnimation(context,
                 R.anim.slid_up));
     }
 
-    public static void SlideDown(View view, Context context)
+    public static void slideDown(View view, Context context)
     {
         view.startAnimation(AnimationUtils.loadAnimation(context,
                 R.anim.slid_down));
@@ -225,6 +229,10 @@ public class utl {
     }
 
 
+    public static boolean isNull(String is)
+    {
+        return is==null||(""+is).equals("null");
+    }
     public static  boolean isValidMobile(String phone)
     {
         return android.util.Patterns.PHONE.matcher(phone).matches();
@@ -327,6 +335,14 @@ public class utl {
             e.printStackTrace();
         }
 
+        try {
+            if(Splash.mGoogleApiClient!=null)
+            Auth.GoogleSignInApi.signOut(Splash.mGoogleApiClient);
+        } catch (Exception e) {
+
+            utl.l("GoogleApiClient is not connected yet. : Trying to logout");
+        }
+
 
         try {
                 removeUserData();
@@ -352,54 +368,15 @@ public class utl {
     }
 
 
-    public static Bitmap changeColorAll(Bitmap sourceBitmap, int colorThatWillReplace) {
+    @SuppressWarnings("ResourceType")
+    public static void changeColorDrawable(ImageView imageView, @DrawableRes int res) {
+
+        DrawableCompat.setTint(imageView.getDrawable(), ContextCompat.getColor(ctx, res));
 
 
-        Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0,
-                sourceBitmap.getWidth() - 1, sourceBitmap.getHeight() - 1);
-        Paint p = new Paint();
-        ColorFilter filter = new LightingColorFilter(colorThatWillReplace, 1);
-        p.setColorFilter(filter);
-        Canvas canvas = new Canvas(resultBitmap);
-        canvas.drawBitmap(resultBitmap, 0, 0, p);
-        return resultBitmap;
+
     }
 
-
-
-    public static  Bitmap changeColor(Bitmap src, int colorToReplace, int colorThatWillReplace) {
-        int width = src.getWidth();
-        int height = src.getHeight();
-        int[] pixels = new int[width * height];
-        // get pixel array from source
-        src.getPixels(pixels, 0, width, 0, 0, width, height);
-
-        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
-
-        int A, R, G, B;
-        int pixel;
-
-        // iteration through pixels
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                // get current index in 2D-matrix
-                int index = y * width + x;
-                pixel = pixels[index];
-                if(pixel == colorToReplace){
-                    //change A-RGB individually
-                    A = Color.alpha(pixel);
-                    R = Color.red(pixel);
-                    G = Color.green(pixel);
-                    B = Color.blue(pixel);
-                    pixels[index] = Color.argb(A,R,G,B);
-                    /*or change the whole color
-                    pixels[index] = colorThatWillReplace;*/
-                }
-            }
-        }
-        bmOut.setPixels(pixels, 0, width, 0, 0, width, height);
-        return bmOut;
-    }
 
 
     public static Float dpFromPx(final Context context, final float px) {

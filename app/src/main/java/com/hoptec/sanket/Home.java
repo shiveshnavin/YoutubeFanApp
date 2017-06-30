@@ -255,6 +255,7 @@ public class Home extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId()==R.id.logout)
                 {
+                    utl.l("LOGGING OUT AFTER MENU CLICK");
                     utl.logout();
                     startActivity(new Intent(ctx, Splash.class));
                     finish();
@@ -299,6 +300,8 @@ public class Home extends AppCompatActivity {
             }
         };
 
+
+        rec=(RecyclerView)findViewById(R.id.rec);
 
         rec.setLayoutManager(new LinearLayoutManager(ctx));
         rec.setAdapter(adapter);
