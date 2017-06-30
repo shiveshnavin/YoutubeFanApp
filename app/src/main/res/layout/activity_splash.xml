@@ -6,9 +6,19 @@
      android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context="in.hoptec.ppower.Splash">
+    tools:context="com.hoptec.sanket.Splash">
 
+    <ImageView
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@color/transparent_semi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <LinearLayout
         android:background="@color/transparent"
         android:layout_width="match_parent"
@@ -31,7 +41,7 @@
 
     </LinearLayout>
 
-    <in.hoptec.ppower.views.SplashView
+    <com.hoptec.sanket.views.SplashView
         android:id="@+id/splash_view"
         android:background="@color/transparent"
         android:layout_width="match_parent"
@@ -64,7 +74,7 @@
             app:font="Avenir-Medium"
             android:padding="10dp"
             android:id="@+id/app"
-            android:textColor="@color/black"
+            android:textColor="@color/color_splash_accent"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/app_name"
@@ -92,6 +102,7 @@
                 android:layout_height="0dp">
 
                 <ImageView
+                    android:id="@+id/fb_small"
                     android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:padding="10dp"
@@ -104,7 +115,7 @@
                     app:font="Avenir-Medium"
                     android:layout_weight="0.6"
                     android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_splash_accent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="Connect via Facebook"
@@ -124,6 +135,7 @@
                 android:layout_height="0dp">
 
                 <ImageView
+                    android:id="@+id/g_small"
                     android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:padding="10dp"
@@ -136,7 +148,7 @@
                     app:font="Avenir-Medium"
                     android:layout_weight="0.6"
                     android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_splash_accent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="Connect via Google"
@@ -156,6 +168,7 @@
                 android:layout_height="0dp">
 
                 <ImageView
+                    android:id="@+id/m_small"
                     android:layout_gravity="center"
                     android:layout_weight="0.2"
                     android:padding="10dp"
@@ -168,7 +181,7 @@
                     app:font="Avenir-Medium"
                     android:layout_weight="0.6"
                     android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_splash_accent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="Connect via Phone"

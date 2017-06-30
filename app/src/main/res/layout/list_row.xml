@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
+    android:layout_width="match_parent"
+    app:cardElevation="2dp"
+    android:layout_margin="7dp"
+    app:cardCornerRadius="5dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+ >
+
+
+    <LinearLayout
+        android:background="?android:selectableItemBackground"
+
+        android:id="@+id/main_target"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="#1000"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_weight="0.8"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            app:font="Avenir-Medium"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true"
+
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="15sp"
+            android:text="SSSSS"
+            android:id="@+id/text1"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+             android:maxLines="2" />
+
+
+        <com.daniribalbert.customfontlib.views.CustomFontTextView
+            app:font="Roboto-Thin"
+            android:padding="4dp"
+            android:textSize="13sp"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:layout_marginTop="4dp"
+        android:text="SHARE"
+        android:id="@+id/plus_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+           <ImageView
+               android:visibility="gone"
+               android:src="@drawable/love"
+               android:layout_weight="0.2"
+               android:padding="13dp"
+               android:scaleType="centerInside"
+               android:layout_width="0dp"
+               android:layout_height="match_parent" />
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

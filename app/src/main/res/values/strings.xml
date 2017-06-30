@@ -1,11 +1,16 @@
 <resources>
-    <string name="app_name">Public Power</string>
+    <string name="app_name">Sanket</string>
+    <string name="facebook_app_id">271627726574133</string>
+    <string name="activity_image_trans">strans</string>
+    <string name="fb_login_protocol_scheme">fb271627726574133</string>
+    <string name="title_activity_detail">Detail</string>
+
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="seek_to">Jump To</string>
+    <string name="seek_to_hint">Seconds</string>
 
 
-    <string name="facebook_app_id">177983366071638</string>
-    <string name="fb_login_protocol_scheme">fb177983366071638</string>
 
-    <string name="activity_image_trans">transs</string>
 
     <!-- <string name="default_web_client_id">177983366071638</string> -->
 

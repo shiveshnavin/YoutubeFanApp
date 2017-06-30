@@ -1,4 +1,4 @@
-package in.hoptec.ppower;
+package com.hoptec.sanket;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("in.hoptec.ppower", appContext.getPackageName());
+        assertEquals("com.hoptec.sanket", appContext.getPackageName());
     }
 }

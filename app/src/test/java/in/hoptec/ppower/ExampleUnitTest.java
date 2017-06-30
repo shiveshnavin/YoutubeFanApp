@@ -1,4 +1,4 @@
-package in.hoptec.ppower;
+package com.hoptec.sanket;
 
 import org.junit.Test;
 

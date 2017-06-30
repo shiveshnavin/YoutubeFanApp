@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "in.hoptec.ppower"
+        applicationId "com.hoptec.sanket"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -35,6 +35,11 @@ android {
 
 }
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -52,6 +57,10 @@ dependencies {
     //ui
     compile 'com.daniribalbert:custom-font-lib:0.9.8'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.github.mancj:MaterialSearchBar:0.7'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton:butterknife:8.6.0'
 
 
     //network
@@ -62,6 +71,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.0.0'
     compile 'com.google.firebase:firebase-auth:11.0.0'
     compile 'com.google.firebase:firebase-messaging:11.0.0'
+    compile 'com.google.firebase:firebase-crash:11.0.0'
 
 
 }
