@@ -209,6 +209,7 @@ public class Splash extends AppCompatActivity {
                                                     Intent intent=new Intent(ctx,Home.class);
                                                     startActivity(intent);
                                                     finish();
+                                                    return;
 
                                                 }
                                                 if(utl.getUser()!=null)
@@ -295,6 +296,7 @@ public class Splash extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
+
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
             mAuth.signInWithCredential(credential)
@@ -474,6 +476,7 @@ public class Splash extends AppCompatActivity {
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 

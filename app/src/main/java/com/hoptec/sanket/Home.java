@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +32,9 @@ import com.hoptec.sanket.adapters.PosterAdapter;
 import com.hoptec.sanket.database.Feed;
 import com.hoptec.sanket.database.OUser;
 import com.hoptec.sanket.utils.FileOperations;
+import com.hoptec.sanket.views.SplashView;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -143,10 +147,12 @@ public class Home extends AppCompatActivity {
 
         AndroidNetworking.initialize(ctx);
         String url=Constants.HOST+"/api/getcontent.php";
+        loading(true);
         AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
             @Override
             public void onResponse(String response) {
 
+                loading(false);
                 utl.l(response);
                 feeds=new ArrayList<>();
                 try {
@@ -170,18 +176,44 @@ public class Home extends AppCompatActivity {
             @Override
             public void onError(ANError ANError) {
 
+                loading(false);
             }
         });
         super.onResume();;
     }
+
+    public void loading(boolean isLoading)
+    {
+         AVLoadingIndicatorView splashView=( AVLoadingIndicatorView)findViewById(R.id.splash_view2);
+        View rec=findViewById(R.id.rec);
+
+        if(isLoading)
+        {
+            splashView.show();
+            rec.setVisibility(View.INVISIBLE);
+
+
+        }
+        else
+        {
+                rec.setVisibility(View.VISIBLE);
+                splashView.hide();
+
+
+        }
+
+    }
+
+
+
     public void setUpToolbar()
     {
 
 
 
         searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-        searchBar.setHint("Search");
-        searchBar.setNavButtonEnabled(false);
+      //  searchBar.setHint("Search");
+       // searchBar.setNavButtonEnabled(false);
 
 
         searchBar.setSpeechMode(false);
@@ -200,11 +232,13 @@ public class Home extends AppCompatActivity {
 
 
 
+                loading(true);
                 String url=Constants.HOST+"/api/getcontent.php?search="+ URLEncoder.encode(text.toString());
                 AndroidNetworking.get(url).build().getAsString(new StringRequestListener() {
                     @Override
                     public void onResponse(String response) {
 
+                        loading(false);
                         utl.l(response);
                         feeds=new ArrayList<>();
                         try {
@@ -228,6 +262,7 @@ public class Home extends AppCompatActivity {
                     @Override
                     public void onError(ANError ANError) {
 
+                        loading(false);
                     }
                 });
 
@@ -249,20 +284,38 @@ public class Home extends AppCompatActivity {
         lastSearches = loadSearchSuggestion();
         searchBar.setLastSuggestions(lastSearches);
 
-        searchBar.inflateMenu(R.menu.main);
-        searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.logout)
-                {
-                    utl.l("LOGGING OUT AFTER MENU CLICK");
-                    utl.logout();
-                    startActivity(new Intent(ctx, Splash.class));
-                    finish();
+
+
+        if (utl.getUser()!=null) {
+            searchBar.inflateMenu(R.menu.main);
+            searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId()==R.id.logout)
+                    {
+                        utl.l("LOGGING OUT AFTER MENU CLICK");
+                        utl.logout();
+
+
+                        Intent itx=(new Intent(ctx, Splash.class));
+                        itx.putExtra("action","login");
+                        itx.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(itx);
+                        finish();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
+        try {
+            searchBar.setTextColor(R.color.grey_700);
+            searchBar.setTextHintColor(R.color.grey_400);
+            searchBar.setHint("Search...");
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

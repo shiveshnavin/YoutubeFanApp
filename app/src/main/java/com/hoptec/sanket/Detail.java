@@ -302,6 +302,7 @@ public class Detail extends YouTubeBaseActivity {
 
         Intent itx=(new Intent(Detail.this, Splash.class));
         itx.putExtra("action","login");
+        itx.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(itx);
         finish();
         if(true)
