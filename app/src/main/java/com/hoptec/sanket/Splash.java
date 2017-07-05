@@ -720,6 +720,7 @@ public class Splash extends AppCompatActivity {
                 "&user_image="+ URLEncoder.encode(""+tmpusr.user_image) +
                 "&user_phone="+ URLEncoder.encode(""+tmpusr.user_phone) +
                 "&extra0="+ URLEncoder.encode(""+tmpusr.extra0) +
+                "&extra1="+ URLEncoder.encode(""+tmpusr.user_phone) +
                 "&auth="+ URLEncoder.encode(""+tmpusr.suid);
 
 

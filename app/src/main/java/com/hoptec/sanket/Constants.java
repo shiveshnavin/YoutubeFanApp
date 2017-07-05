@@ -15,7 +15,7 @@ public class Constants {
 
    // public static String HOST="http://hoproject.000webhostapp.com/cms";
 
-    public static String HOST="http://192.168.23.3/cms";
+    public static String HOST="http://hoproject.000webhostapp.com/cms";
     public static String API_USER_REG_GET="/api/createuser.php";
     public static String API_USER_LOGIN_GET="/api/login.php";
 
