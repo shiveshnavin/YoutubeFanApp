@@ -45,19 +45,25 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+        try { Log.d(TAG, "FCM From: " + remoteMessage.getFrom());
 
-         ctx=this;
+            Log.d(TAG, "FCM Notification Message Body: " + remoteMessage.getNotification().getBody());
+        } catch (Exception e) {
+           // e.printStackTrace();
+        }
+
+        ctx=this;
          utl.init(ctx);
 
 
+        createNotification(remoteMessage);
 
     }
 
     Gson js;
     Context ctx;
 
+    int nott=1;
     private void createNotification( RemoteMessage remoteMessage) {
         try {
          //   String mess=remoteMessage.getNotification().getBody();
@@ -82,13 +88,14 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                     .setContentText(""+remoteMessage.getData().get("text"))
                     .setAutoCancel( true )
                     .setSound(notificationSoundURI)
-                    .setContentInfo("Wootout")
+                    .setContentInfo("Sanket")
                     .setContentIntent(isLoggedIn?resultIntent: PendingIntent.getActivity( this , 0, new Intent(ctx, Home.class),
                             PendingIntent.FLAG_ONE_SHOT));
 
 
-            Notification n = NotificationExtras.buildWithBackgroundColor(ctx, b, getResources().getColor(R.color.green_400));
-            NotificationManagerCompat.from(this).notify(1, n);
+            Notification n = NotificationExtras.buildWithBackgroundColor(ctx, b, getResources().getColor(R.color.grey_500));
+            NotificationManagerCompat.from(this).notify(++nott
+                    , n);
 
 
         } catch (Exception e) {

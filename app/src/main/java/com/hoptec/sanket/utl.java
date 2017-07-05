@@ -53,6 +53,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -554,6 +555,13 @@ public class utl {
 
         return FirebaseAuth.getInstance().getCurrentUser();
 
+    }
+
+    public static String getFCMTOken()
+    {
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        return refreshedToken;
     }
 
 

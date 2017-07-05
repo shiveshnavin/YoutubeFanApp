@@ -13,10 +13,14 @@ public class Constants {
 
 
 
-    public static String HOST="http://hoproject.000webhostapp.com/cms";
+   // public static String HOST="http://hoproject.000webhostapp.com/cms";
 
-    public static String API_USER_REG_GET="/createuser.php";
-    public static String API_USER_LOGIN_GET="/login.php";
+    public static String HOST="http://192.168.23.3/cms";
+    public static String API_USER_REG_GET="/api/createuser.php";
+    public static String API_USER_LOGIN_GET="/api/login.php";
+
+    //http://127.0.0.1/genric/api/register_fcm.php?userid=4&fcmtoken=rdf34534534
+    public static String API_USER_FCM_REG="/api/register_fcm.php";
 
     public static String YOUTUBE_API_KEY="AIzaSyBCv55OdKr7NDPeW0Xxrb0RbULbQzKbM88";
 

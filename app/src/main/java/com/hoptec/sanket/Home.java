@@ -66,6 +66,7 @@ public class Home extends AppCompatActivity {
     RecyclerView rec;
 
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,14 +88,22 @@ public class Home extends AppCompatActivity {
 
         setUpToolbar();
 
-//        utl.snack(act,"Welcome Back ! "+utl.readData(ctx).name);
+        // utl.snack(act,"Welcome Back ! "+utl.readData(ctx).name);
         //startlogin(user.email,user.suserId,0);
 
 
 
+        registerFCM();
 
     }
 
+    //
+    public void registerFCM()
+    {
+
+
+
+    }
     public void checkPermission()
     {
         String permissionss []={Manifest.permission.READ_EXTERNAL_STORAGE,

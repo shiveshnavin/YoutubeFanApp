@@ -204,7 +204,7 @@ public class Splash extends AppCompatActivity {
 
 
                                                 String action= ""+getIntent().getStringExtra("action");
-                                                if(! action.equals("login"))
+                                                if(! action.equals("login")&&false)
                                                 {
                                                     Intent intent=new Intent(ctx,Home.class);
                                                     startActivity(intent);
@@ -425,6 +425,7 @@ public class Splash extends AppCompatActivity {
         if(!utl.isNull(firebaseUser.getDisplayName())||askedForName)
         {
 
+            user.extra0=utl.getFCMTOken();
             register(user);
 
 
@@ -691,7 +692,7 @@ public class Splash extends AppCompatActivity {
                     public void onError(ANError ANError) {
 
                         utl.showDig(false,ctx);
-                        utl.l(ANError.getErrorDetail());
+                        utl.l(ANError.getErrorBody());
                     }
                 });
 
@@ -718,6 +719,7 @@ public class Splash extends AppCompatActivity {
                 "&user_password="+ URLEncoder.encode(""+tmpusr.user_password) +
                 "&user_image="+ URLEncoder.encode(""+tmpusr.user_image) +
                 "&user_phone="+ URLEncoder.encode(""+tmpusr.user_phone) +
+                "&extra0="+ URLEncoder.encode(""+tmpusr.extra0) +
                 "&auth="+ URLEncoder.encode(""+tmpusr.suid);
 
 
